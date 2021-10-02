@@ -5,9 +5,6 @@
  */
 package M_Recepcionista;
 
-import Proyecto.Crud_Doctor;
-import Proyecto.Crud_Paciente;
-
 /**
  *
  * @author carlo

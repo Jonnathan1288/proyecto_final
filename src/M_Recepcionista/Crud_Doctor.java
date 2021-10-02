@@ -3,8 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Proyecto;
+package M_Recepcionista;
 
+import clases.Doctor;
 import Comportamientos.IngresoDoctores;
 import Conexion_BD.Conexion;
 import M_Recepcionista.Menu_Recepcionista;

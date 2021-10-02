@@ -6,7 +6,7 @@
 package Comportamientos;
 
 import Conexion_BD.Conexion;
-import Proyecto.Doctor;
+import clases.Doctor;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
