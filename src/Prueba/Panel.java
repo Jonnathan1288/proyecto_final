@@ -40,5 +40,11 @@ public class Panel {
         System.out.println("Hola");
         System.out.println("HoCDCDVla");
         System.out.println("Holsbhcxvsa");
+        System.out.println("Hola");
+        System.out.println("HoCDCDVla");
+        System.out.println("Holsbhcxvsa");
+        System.out.println("Hola");
+        System.out.println("HoCDCDVla");
+        System.out.println("Holsbhcxvsa");
     }
 }
