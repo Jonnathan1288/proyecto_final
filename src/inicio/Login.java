@@ -25,7 +25,7 @@ public class Login extends javax.swing.JFrame {
     }
 
     public void Incon() {
-        URL ur2 = getClass().getResource("/Imagenes/pa.jpg");
+        URL ur2 = getClass().getResource("/Image/llacao2.1.jpg");
         ImageIcon xx2 = new ImageIcon(ur2);
         setIconImage(xx2.getImage());
     }
