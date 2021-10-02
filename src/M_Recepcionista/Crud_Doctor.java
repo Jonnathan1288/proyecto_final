@@ -6,7 +6,7 @@
 package M_Recepcionista;
 
 import clases.Doctor;
-import Comportamientos.IngresoDoctores;
+import Comportamientos_recepcionista.IngresoDoctores;
 import Conexion_BD.Conexion;
 import M_Recepcionista.Menu_Recepcionista;
 import static java.awt.Frame.MAXIMIZED_BOTH;
