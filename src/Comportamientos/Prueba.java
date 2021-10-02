@@ -26,6 +26,7 @@ public class Prueba {
 
     public void bb() {
         System.out.println("kljvuftdtus");
+        System.out.println("Hola.");
        
         
     }
