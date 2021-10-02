@@ -6,7 +6,7 @@
 package inicio;
 
 import Proyecto.Crud_Doctor;
-import Proyecto.MensajeFantasma;
+import clases.MensajeFantasma;
 import javax.swing.JOptionPane;
 
 /**

@@ -6,7 +6,7 @@
 package M_Recepcionista;
 
 import Comportamientos.IngresoRecepcionistas;
-import Proyecto.Recepcionista;
+import clases.Recepcionista;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Vector;

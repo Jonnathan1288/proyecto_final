@@ -5,7 +5,7 @@
  */
 package Interface;
 
-import Proyecto.Paciente;
+import clases.Paciente;
 import java.util.List;
 
 /**

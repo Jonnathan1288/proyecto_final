@@ -5,6 +5,8 @@
  */
 package Proyecto;
 
+import clases.Persona;
+
 /**
  *
  * @author DELL

@@ -5,7 +5,7 @@
  */
 package Interface;
 
-import Proyecto.Recepcionista;
+import clases.Recepcionista;
 import java.util.List;
 
 /**

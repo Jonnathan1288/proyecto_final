@@ -7,7 +7,7 @@ package Comportamientos;
 
 import Conexion_BD.Conexion;
 import Interface.ConexionesPaciente;
-import Proyecto.Paciente;
+import clases.Paciente;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;

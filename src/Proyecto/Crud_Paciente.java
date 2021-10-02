@@ -5,6 +5,7 @@
  */
 package Proyecto;
 
+import clases.Paciente;
 import Comportamientos.IngresoPacientes;
 import M_Recepcionista.Menu_Recepcionista;
 import java.text.SimpleDateFormat;

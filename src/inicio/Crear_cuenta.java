@@ -5,7 +5,7 @@
  */
 package inicio;
 
-import Proyecto.MensajeFantasma;
+import clases.MensajeFantasma;
 import inicio.Inicio_Sesion;
 import javax.swing.JOptionPane;
 

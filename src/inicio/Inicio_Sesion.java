@@ -7,7 +7,7 @@ package inicio;
 
 import inicio.Login;
 import M_Recepcionista.Menu_Recepcionista;
-import Proyecto.MensajeFantasma;
+import clases.MensajeFantasma;
 import javax.swing.JOptionPane;
 
 /**

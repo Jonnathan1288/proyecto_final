@@ -7,7 +7,7 @@ package Comportamientos;
 
 import Conexion_BD.Conexion;
 import Interface.ConexionesRecep;
-import Proyecto.Recepcionista;
+import clases.Recepcionista;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
