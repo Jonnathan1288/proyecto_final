@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Proyecto;
+package inicio;
 
 import java.net.URL;
 import javax.swing.ImageIcon;

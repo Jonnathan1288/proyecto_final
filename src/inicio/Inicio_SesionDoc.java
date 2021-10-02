@@ -3,8 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Proyecto;
+package inicio;
 
+import Proyecto.Crud_Doctor;
+import Proyecto.MensajeFantasma;
 import javax.swing.JOptionPane;
 
 /**
@@ -218,7 +220,6 @@ public class Inicio_SesionDoc extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel FonDoc;
-    private javax.swing.JLabel FonDoc1;
     private javax.swing.JLabel FonDoc2;
     private javax.swing.JLabel LblImage;
     private javax.swing.JPasswordField PasswdInicio;
@@ -227,7 +228,6 @@ public class Inicio_SesionDoc extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     // End of variables declaration//GEN-END:variables
 }

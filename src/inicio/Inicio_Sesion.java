@@ -3,9 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package Proyecto;
+package inicio;
 
+import inicio.Login;
 import M_Recepcionista.Menu_Recepcionista;
+import Proyecto.MensajeFantasma;
 import javax.swing.JOptionPane;
 
 /**
