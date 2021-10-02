@@ -22,6 +22,9 @@ public class Prueba {
     public void setNom(String nom) {
         this.nom = nom;
     }
+    public void bb(){
+        System.out.println("ssssss");
+    }
     
     
 }
