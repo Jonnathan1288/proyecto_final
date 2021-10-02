@@ -10,6 +10,7 @@ package Comportamientos;
  * @author DELL
  */
 public class Prueba {
+
     String nom;
 
     public Prueba() {
@@ -22,9 +23,11 @@ public class Prueba {
     public void setNom(String nom) {
         this.nom = nom;
     }
-    public void bb(){
+
+    public void bb() {
+        System.out.println("ssssss");
+        System.out.println("ssssss");
         System.out.println("ssssss");
     }
-    
-    
+
 }
