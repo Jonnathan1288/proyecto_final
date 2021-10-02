@@ -25,9 +25,9 @@ public class Prueba {
     }
 
     public void bb() {
-        System.out.println("ssssss");
-        System.out.println("ssssss");
-        System.out.println("ssssss");
+        System.out.println("kljvuftdtus");
+       
+        
     }
 
 }
