@@ -13,6 +13,7 @@ public class Prueba {
 
     String nom;
     String numJose;
+    String n;
 
     public Prueba() {
     }
