@@ -36,15 +36,29 @@
               <EmptySpace max="-2" attributes="0"/>
           </Group>
           <Group type="102" alignment="1" attributes="0">
-              <EmptySpace min="0" pref="309" max="32767" attributes="0"/>
+              <EmptySpace min="0" pref="362" max="32767" attributes="0"/>
               <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
-              <EmptySpace min="-2" pref="282" max="-2" attributes="0"/>
+              <EmptySpace type="separate" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <Component id="TxtBuscarPac" min="-2" pref="175" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="36" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="1" attributes="0">
+                      <Component id="BtnBuscarPac" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="64" max="-2" attributes="0"/>
+                  </Group>
+              </Group>
           </Group>
           <Group type="102" attributes="0">
               <EmptySpace min="-2" pref="637" max="-2" attributes="0"/>
               <Component id="BtnGuardarDoc" min="-2" max="-2" attributes="0"/>
               <EmptySpace min="-2" pref="43" max="-2" attributes="0"/>
               <Component id="BtnListaPaciente" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="41" max="-2" attributes="0"/>
+              <Component id="BtnEliminarPac" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="45" max="-2" attributes="0"/>
+              <Component id="BtnModificarPac" min="-2" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
           </Group>
           <Group type="102" attributes="0">
@@ -65,12 +79,24 @@
                   </Group>
                   <Component id="BtnSalirCrudDoc" alignment="0" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="jPanel1" min="-2" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="0" attributes="0">
+                      <EmptySpace min="-2" pref="86" max="-2" attributes="0"/>
+                      <Component id="TxtBuscarPac" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
+                      <Component id="BtnBuscarPac" min="-2" max="-2" attributes="0"/>
+                  </Group>
+              </Group>
               <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="BtnGuardarDoc" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="BtnListaPaciente" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="BtnEliminarPac" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="BtnModificarPac" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
               <Component id="jScrollPane1" min="-2" pref="133" max="-2" attributes="0"/>
@@ -129,13 +155,13 @@
                           </Group>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                              <Component id="TxtAlergiasPac" alignment="0" min="-2" pref="191" max="-2" attributes="0"/>
-                              <Component id="TxtDireccionPac" alignment="0" min="-2" pref="191" max="-2" attributes="0"/>
-                              <Component id="TxtTelefonoPac" alignment="0" min="-2" pref="191" max="-2" attributes="0"/>
+                              <Component id="TxtDireccionPac" alignment="0" pref="191" max="32767" attributes="0"/>
+                              <Component id="TxtTelefonoPac" alignment="0" pref="191" max="32767" attributes="0"/>
                               <Group type="102" alignment="0" attributes="0">
                                   <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
                                   <Component id="DateFnaciPaci" max="32767" attributes="0"/>
                               </Group>
+                              <Component id="ComboTipoAlergiasPac" alignment="0" max="32767" attributes="0"/>
                           </Group>
                       </Group>
                   </Group>
@@ -227,10 +253,10 @@
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="jLabel12" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="TxtAlergiasPac" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="jLabel13" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="RadioDiscapaNO" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="RadioDiscapaSI" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="ComboTipoAlergiasPac" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace pref="30" max="32767" attributes="0"/>
               </Group>
@@ -353,8 +379,6 @@
             <Property name="text" type="java.lang.String" value="Alergia: "/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JTextField" name="TxtAlergiasPac">
-        </Component>
         <Component class="javax.swing.JLabel" name="jLabel14">
           <Properties>
             <Property name="text" type="java.lang.String" value="Estado civil: "/>
@@ -431,6 +455,28 @@
         </Component>
         <Component class="com.toedter.calendar.JDateChooser" name="DateFnaciPaci">
         </Component>
+        <Component class="javax.swing.JComboBox" name="ComboTipoAlergiasPac">
+          <Properties>
+            <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+              <StringArray count="8">
+                <StringItem index="0" value="Seleccione"/>
+                <StringItem index="1" value="Estacional"/>
+                <StringItem index="2" value="Interior"/>
+                <StringItem index="3" value="Mascotas"/>
+                <StringItem index="4" value="Cut&#xe1;neas"/>
+                <StringItem index="5" value="Alimentarias"/>
+                <StringItem index="6" value="Polen"/>
+                <StringItem index="7" value="Sol"/>
+              </StringArray>
+            </Property>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ComboTipoAlergiasPacActionPerformed"/>
+          </Events>
+          <AuxValues>
+            <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+          </AuxValues>
+        </Component>
       </SubComponents>
     </Container>
     <Component class="javax.swing.JButton" name="BtnGuardarDoc">
@@ -477,6 +523,9 @@
               </Table>
             </Property>
           </Properties>
+          <Events>
+            <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="TablaPacienteMouseClicked"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>
@@ -486,6 +535,32 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BtnListaPacienteActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="BtnEliminarPac">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Eliminar"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BtnEliminarPacActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="BtnModificarPac">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Modificar"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BtnModificarPacActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JTextField" name="TxtBuscarPac">
+    </Component>
+    <Component class="javax.swing.JButton" name="BtnBuscarPac">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Buscar"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="BtnBuscarPacActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>

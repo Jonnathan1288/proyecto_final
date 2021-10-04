@@ -5,9 +5,9 @@
  */
 package M_Recepcionista;
 
-import clases.Paciente;
 import Comportamientos_recepcionista.IngresoPacientes;
 import M_Recepcionista.Menu_Recepcionista;
+import clases.Paciente;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -66,7 +66,6 @@ public class Crud_Paciente extends javax.swing.JFrame {
         RadioBtnNoDefinido = new javax.swing.JRadioButton();
         jLabel10 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
-        TxtAlergiasPac = new javax.swing.JTextField();
         jLabel14 = new javax.swing.JLabel();
         ComboEstadocivilPac = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
@@ -77,11 +76,16 @@ public class Crud_Paciente extends javax.swing.JFrame {
         RadioDiscapaNO = new javax.swing.JRadioButton();
         RadioDiscapaSI = new javax.swing.JRadioButton();
         DateFnaciPaci = new com.toedter.calendar.JDateChooser();
+        ComboTipoAlergiasPac = new javax.swing.JComboBox<>();
         BtnGuardarDoc = new javax.swing.JButton();
         BtnSalirCrudDoc = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         TablaPaciente = new javax.swing.JTable();
         BtnListaPaciente = new javax.swing.JButton();
+        BtnEliminarPac = new javax.swing.JButton();
+        BtnModificarPac = new javax.swing.JButton();
+        TxtBuscarPac = new javax.swing.JTextField();
+        BtnBuscarPac = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
@@ -147,6 +151,13 @@ public class Crud_Paciente extends javax.swing.JFrame {
         GrupoDiscapacidadPac.add(RadioDiscapaSI);
         RadioDiscapaSI.setText("SI");
 
+        ComboTipoAlergiasPac.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione", "Estacional", "Interior", "Mascotas", "Cutáneas", "Alimentarias", "Polen", "Sol" }));
+        ComboTipoAlergiasPac.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ComboTipoAlergiasPacActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -175,12 +186,12 @@ public class Crud_Paciente extends javax.swing.JFrame {
                             .addComponent(jLabel12))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(TxtAlergiasPac, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(TxtDireccionPac, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(TxtTelefonoPac, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(TxtDireccionPac, javax.swing.GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE)
+                            .addComponent(TxtTelefonoPac, javax.swing.GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGap(24, 24, 24)
-                                .addComponent(DateFnaciPaci, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                                .addComponent(DateFnaciPaci, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(ComboTipoAlergiasPac, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addGap(42, 42, 42)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel8)
@@ -255,10 +266,10 @@ public class Crud_Paciente extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel12)
-                    .addComponent(TxtAlergiasPac, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel13)
                     .addComponent(RadioDiscapaNO)
-                    .addComponent(RadioDiscapaSI))
+                    .addComponent(RadioDiscapaSI)
+                    .addComponent(ComboTipoAlergiasPac, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(30, Short.MAX_VALUE))
         );
 
@@ -285,12 +296,38 @@ public class Crud_Paciente extends javax.swing.JFrame {
                 "Cedula", "Apellido", "Nombre", "Fecha de nacimiento", "Telefono", "Direccion", "Alergia", "Ocupación", "Edad", "Tipo sangre", "Genero", "Estado civil", "Nivel Estudio", "Discapacidad"
             }
         ));
+        TablaPaciente.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TablaPacienteMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(TablaPaciente);
 
         BtnListaPaciente.setText("Lista");
         BtnListaPaciente.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BtnListaPacienteActionPerformed(evt);
+            }
+        });
+
+        BtnEliminarPac.setText("Eliminar");
+        BtnEliminarPac.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnEliminarPacActionPerformed(evt);
+            }
+        });
+
+        BtnModificarPac.setText("Modificar");
+        BtnModificarPac.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnModificarPacActionPerformed(evt);
+            }
+        });
+
+        BtnBuscarPac.setText("Buscar");
+        BtnBuscarPac.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnBuscarPacActionPerformed(evt);
             }
         });
 
@@ -303,14 +340,25 @@ public class Crud_Paciente extends javax.swing.JFrame {
                 .addComponent(jScrollPane1)
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 309, Short.MAX_VALUE)
+                .addGap(0, 362, Short.MAX_VALUE)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(282, 282, 282))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(TxtBuscarPac, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(36, 36, 36))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(BtnBuscarPac)
+                        .addGap(64, 64, 64))))
             .addGroup(layout.createSequentialGroup()
                 .addGap(637, 637, 637)
                 .addComponent(BtnGuardarDoc)
                 .addGap(43, 43, 43)
                 .addComponent(BtnListaPaciente)
+                .addGap(41, 41, 41)
+                .addComponent(BtnEliminarPac)
+                .addGap(45, 45, 45)
+                .addComponent(BtnModificarPac)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(556, 556, 556)
@@ -326,12 +374,21 @@ public class Crud_Paciente extends javax.swing.JFrame {
                         .addGap(9, 9, 9)
                         .addComponent(jLabel11))
                     .addComponent(BtnSalirCrudDoc))
-                .addGap(18, 18, 18)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(86, 86, 86)
+                        .addComponent(TxtBuscarPac, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(BtnBuscarPac)))
                 .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(BtnGuardarDoc)
-                    .addComponent(BtnListaPaciente))
+                    .addComponent(BtnListaPaciente)
+                    .addComponent(BtnEliminarPac)
+                    .addComponent(BtnModificarPac))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 133, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(78, Short.MAX_VALUE))
@@ -353,7 +410,7 @@ public class Crud_Paciente extends javax.swing.JFrame {
         String fecha_nacidopa = formatoFechap.format(DateFnaciPaci.getDate());
         String telefonop = TxtTelefonoPac.getText();
         String direccionp = TxtDireccionPac.getText();
-        String alergiap = TxtAlergiasPac.getText();
+        String alergiap = ComboTipoAlergiasPac.getSelectedItem().toString();
         String ocupacionp = TxtOcupacionPac.getText();
         int edadp = Integer.parseInt(edadpac);
         String tiposangrep = ComboTipoSangrePac.getSelectedItem().toString();
@@ -416,7 +473,7 @@ public class Crud_Paciente extends javax.swing.JFrame {
     }
     private void BtnGuardarDocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnGuardarDocActionPerformed
 
-        if (!(TxtCedulaPac.getText().equals("") || TxtApellidoPac.getText().equals("") || TxtNombrePac.getText().equals("") || TxtTelefonoPac.getText().equals("") || TxtDireccionPac.getText().equals("") || TxtAlergiasPac.getText().equals("") || TxtOcupacionPac.getText().equals("") || ComboTipoSangrePac.getSelectedItem().equals("Seleccione") || GrupoGeneroPac.isSelected(null) || ComboEstadocivilPac.getSelectedItem().equals("Seleccione") || ComboTipoEstudiPac.getSelectedItem().equals("Seleccione") || GrupoDiscapacidadPac.isSelected(null))) {
+        if (!(TxtCedulaPac.getText().equals("") || TxtApellidoPac.getText().equals("") || TxtNombrePac.getText().equals("") || TxtTelefonoPac.getText().equals("") || TxtDireccionPac.getText().equals("") || ComboTipoAlergiasPac.getSelectedItem().equals("Seleccione") || TxtOcupacionPac.getText().equals("") || ComboTipoSangrePac.getSelectedItem().equals("Seleccione") || GrupoGeneroPac.isSelected(null) || ComboEstadocivilPac.getSelectedItem().equals("Seleccione") || ComboTipoEstudiPac.getSelectedItem().equals("Seleccione") || GrupoDiscapacidadPac.isSelected(null))) {
 
             genero_paciente();
             mostrar_edadPac();
@@ -447,6 +504,186 @@ public class Crud_Paciente extends javax.swing.JFrame {
         verRegistrosPaciente();
     }//GEN-LAST:event_BtnListaPacienteActionPerformed
 
+    private void ComboTipoAlergiasPacActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ComboTipoAlergiasPacActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_ComboTipoAlergiasPacActionPerformed
+
+    private void BtnEliminarPacActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnEliminarPacActionPerformed
+        // TODO add your handling code here:
+        int i = TablaPaciente.getSelectedRow();
+        if (i >= 0) {
+
+            int t = JOptionPane.showConfirmDialog(this, "Seguro que desea eliminar este registro?", "Verificación de eliminar.", JOptionPane.YES_NO_OPTION);
+            if (t == JOptionPane.YES_OPTION) {
+                EliminarPaciente();
+                limpiar_datosPaciente();
+                JOptionPane.showMessageDialog(null, "Registro eliminado correctamente");
+            }
+            if (t == JOptionPane.NO_OPTION) {
+                JOptionPane.showMessageDialog(null, "Eliminacion cancelada.");
+
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Seleccione el registro para eliminar.");
+        }
+    }//GEN-LAST:event_BtnEliminarPacActionPerformed
+
+    private void TablaPacienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TablaPacienteMouseClicked
+        int i = TablaPaciente.getSelectedRow();
+
+        if (i >= 0) {
+            String cedulap = TablaPaciente.getValueAt(i, 0).toString();
+            String apellidop = TablaPaciente.getValueAt(i, 1).toString();
+            String nombrep = TablaPaciente.getValueAt(i, 2).toString();
+            String fnacimientop = TablaPaciente.getValueAt(i, 3).toString();
+            String telefonop = TablaPaciente.getValueAt(i, 4).toString();
+            String direccionp = TablaPaciente.getValueAt(i, 5).toString();
+            String alergiap = TablaPaciente.getValueAt(i, 6).toString();
+            String ocupacionp = TablaPaciente.getValueAt(i, 7).toString();
+            String edadp = TablaPaciente.getValueAt(i, 8).toString();
+            String tiposangrep = TablaPaciente.getValueAt(i, 9).toString();
+            String generop = TablaPaciente.getValueAt(i, 10).toString();
+            String estado_civilp = TablaPaciente.getValueAt(i, 11).toString();
+            String nivel_estudio = TablaPaciente.getValueAt(i, 12).toString();
+            String discapacidadp = TablaPaciente.getValueAt(i, 13).toString();
+
+            TxtCedulaPac.setText(cedulap);
+            TxtApellidoPac.setText(apellidop);
+            TxtNombrePac.setText(nombrep);
+            TxtTelefonoPac.setText(telefonop);
+            TxtDireccionPac.setText(direccionp);
+            ComboTipoAlergiasPac.setSelectedItem(alergiap);
+            TxtOcupacionPac.setText(ocupacionp);
+            ComboTipoSangrePac.setSelectedItem(tiposangrep);
+            if (generop.equals("Masculino")) {
+                RadioBtnMasculino.setSelected(true);
+            }
+            if (generop.equals("Femenino")) {
+                RadioBtnFemenino.setSelected(true);
+            }
+            if (generop.equals("No definido")) {
+                RadioBtnNoDefinido.setSelected(true);
+            }
+            ComboEstadocivilPac.setSelectedItem(estado_civilp);
+            ComboTipoEstudiPac.setSelectedItem(nivel_estudio);
+            if (discapacidadp.equals("SI")) {
+                RadioDiscapaSI.setSelected(true);
+            }
+            if (discapacidadp.equals("NO")) {
+                RadioDiscapaNO.setSelected(true);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "");
+        }
+    }//GEN-LAST:event_TablaPacienteMouseClicked
+
+    private void BtnModificarPacActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnModificarPacActionPerformed
+
+        int i = TablaPaciente.getSelectedRow();
+        if (i >= 0) {
+            mostrar_edadPac();
+            genero_paciente();
+            discapacidad_paciente();
+            ModificarPaciente();
+        } else {
+            JOptionPane.showMessageDialog(null, "Seleccione el registro para modificar.");
+        }
+    }//GEN-LAST:event_BtnModificarPacActionPerformed
+
+    private void BtnBuscarPacActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnBuscarPacActionPerformed
+
+        if (!(TxtBuscarPac.getText().equals(""))) {
+            BuscarPaciente();
+        } else {
+            JOptionPane.showMessageDialog(null, "Por favor debe ingresar la cedula en el campo, para realizar la consulta.", "Precaución  ", JOptionPane.WARNING_MESSAGE);
+        }
+        TxtBuscarPac.setText("");
+    }//GEN-LAST:event_BtnBuscarPacActionPerformed
+
+    public void BuscarPaciente() {
+        DefaultTableModel modelopa = (DefaultTableModel) TablaPaciente.getModel();
+        modelopa.setRowCount(0);
+        List<Paciente> listaPacientes = ingresopa.consultaPaciente(TxtBuscarPac.getText());
+        for (Paciente paci : listaPacientes) {
+            Vector paciente = new Vector();
+
+            paciente.add(paci.getCedula());
+            paciente.add(paci.getApellido());
+            paciente.add(paci.getNombre());
+            paciente.add(paci.getFecha_nacimiento());
+            paciente.add(paci.getTelefono());
+            paciente.add(paci.getDireccion());
+            paciente.add(paci.getAlergias());
+            paciente.add(paci.getOcupacion());
+            paciente.add(paci.getEdad());
+            paciente.add(paci.getTipo_sangre());
+            paciente.add(paci.getGenero());
+            paciente.add(paci.getEstado_civil());
+            paciente.add(paci.getNivel_estudio());
+            paciente.add(paci.getDiscapacidad());
+
+            modelopa.addRow(paciente);
+            TablaPaciente.setModel(modelopa);
+        }
+    }
+
+    public void ModificarPaciente() {//aquiiiiiiiiiiiiiiiiiiiiiiiiii
+        String cedulap = TxtCedulaPac.getText();
+        String apellidop = TxtApellidoPac.getText();
+        String nombrep = TxtNombrePac.getText();
+        SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
+        String fnacimientop = formatoFecha.format(DateFnaciPaci.getDate());
+        String telefonop = TxtTelefonoPac.getText();
+        String direccionp = TxtDireccionPac.getText();
+        String alergiap = ComboTipoAlergiasPac.getSelectedItem().toString();
+        String ocupacionp = TxtOcupacionPac.getText();
+        int edadp = Integer.parseInt(edadpac);
+        String tiposangrep = ComboTipoSangrePac.getSelectedItem().toString();
+        String generop = generopac;
+        String estado_civilp = ComboEstadocivilPac.getSelectedItem().toString();
+        String nivel_estudio = ComboTipoEstudiPac.getSelectedItem().toString();
+        String discapacidadp = discapacidadPac;
+
+        //validamos los campos a enviar a la base de datos
+        if (cedulap.isEmpty() || apellidop.isEmpty() || nombrep.isEmpty() || fnacimientop.isEmpty() || telefonop.isEmpty() || direccionp.isEmpty() || alergiap.isEmpty() || ocupacionp.isEmpty() || edadp <= 0 || tiposangrep.isEmpty() || generop.isEmpty() || estado_civilp.isEmpty() || nivel_estudio.isEmpty() || discapacidadp.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Por favor valide los datos a enviar a la Base de Datos");
+        } else {
+            Paciente pac = new Paciente();
+            pac.setCedula(cedulap);
+            pac.setApellido(apellidop);
+            pac.setNombre(nombrep);
+            pac.setFecha_nacimiento(fnacimientop);
+            pac.setTelefono(telefonop);
+            pac.setDireccion(direccionp);
+            pac.setAlergias(alergiap);
+            pac.setOcupacion(ocupacionp);
+            pac.setEdad(edadp);
+            pac.setTipo_sangre(tiposangrep);
+            pac.setGenero(generop);
+            pac.setEstado_civil(estado_civilp);
+            pac.setNivel_estudio(nivel_estudio);
+            pac.setDiscapacidad(discapacidadp);
+            if (ingresopa.ModificarPaciente(pac)) {
+                JOptionPane.showMessageDialog(null, "Modificasion con exito");
+                verRegistrosPaciente();
+                limpiar_datosPaciente();
+            }
+        }
+
+    }
+
+    public void EliminarPaciente() {
+        String cedulap = TxtCedulaPac.getText();
+        if (TxtCedulaPac.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Por favor debe seleccionar un articulo de la lista");
+        } else {
+            if (ingresopa.EliminarPaciente(cedulap)) {
+                JOptionPane.showMessageDialog(null, "Registro eliminado con exito...");
+                mostrar_pacientes();
+            }
+        }
+    }
+
     public void limpiar_datosPaciente() {
         TxtCedulaPac.setText("");
         TxtApellidoPac.setText("");
@@ -454,7 +691,7 @@ public class Crud_Paciente extends javax.swing.JFrame {
         //   TxtFecha_Nacimiento_Pac.setText("");
         TxtTelefonoPac.setText("");
         TxtDireccionPac.setText("");
-        TxtAlergiasPac.setText("");
+        ComboTipoAlergiasPac.setSelectedItem("Seleccione");
         TxtOcupacionPac.setText("");
         ComboTipoSangrePac.setSelectedItem("Seleccione");
         GrupoGeneroPac.clearSelection();
@@ -559,10 +796,14 @@ public class Crud_Paciente extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BtnBuscarPac;
+    private javax.swing.JButton BtnEliminarPac;
     private javax.swing.JButton BtnGuardarDoc;
     private javax.swing.JButton BtnListaPaciente;
+    private javax.swing.JButton BtnModificarPac;
     private javax.swing.JButton BtnSalirCrudDoc;
     private javax.swing.JComboBox<String> ComboEstadocivilPac;
+    private javax.swing.JComboBox<String> ComboTipoAlergiasPac;
     private javax.swing.JComboBox<String> ComboTipoEstudiPac;
     private javax.swing.JComboBox<String> ComboTipoSangrePac;
     private com.toedter.calendar.JDateChooser DateFnaciPaci;
@@ -575,8 +816,8 @@ public class Crud_Paciente extends javax.swing.JFrame {
     private javax.swing.JRadioButton RadioDiscapaSI;
     private javax.swing.JSpinner SpinerEdadPac;
     private javax.swing.JTable TablaPaciente;
-    private javax.swing.JTextField TxtAlergiasPac;
     private javax.swing.JTextField TxtApellidoPac;
+    private javax.swing.JTextField TxtBuscarPac;
     private javax.swing.JTextField TxtCedulaPac;
     private javax.swing.JTextField TxtDireccionPac;
     private javax.swing.JTextField TxtNombrePac;

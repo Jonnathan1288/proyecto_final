@@ -17,4 +17,7 @@ public interface ConexionesPaciente {
     
     public List<Paciente> listarDatos();
     
+    public boolean EliminarPaciente(String cedulap);
+    
+    public boolean ModificarPaciente(Paciente pacientes);
 }

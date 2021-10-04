@@ -17,4 +17,8 @@ public interface ConexionesRecep {
     
     public List<Recepcionista> listarDatos();
     
+    public boolean EliminarRecepcionista(String cedula);
+    
+    public boolean ModificarRecepcionista(Recepcionista recepcionista);
+    
 }

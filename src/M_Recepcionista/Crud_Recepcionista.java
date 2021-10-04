@@ -6,6 +6,7 @@
 package M_Recepcionista;
 
 import Comportamientos_recepcionista.IngresoRecepcionistas;
+import M_Recepcionista.Menu_Recepcionista;
 import clases.Recepcionista;
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -23,11 +24,13 @@ public class Crud_Recepcionista extends javax.swing.JFrame {
      * Creates new form Crud_Recepcionista
      */
     String edadrecep = "", titulorecep = "", generorecep = "";
-    
+
     Recepcionista recep = new Recepcionista();
     IngresoRecepcionistas acrecep = new IngresoRecepcionistas();
+
     public Crud_Recepcionista() {
         initComponents();
+        vertablaRecepcionistas();
     }
 
     /**
@@ -68,9 +71,13 @@ public class Crud_Recepcionista extends javax.swing.JFrame {
         BtnGuardarRep = new javax.swing.JButton();
         BtnVRegistrosRecep = new javax.swing.JButton();
         DateRecepcionista = new com.toedter.calendar.JDateChooser();
+        BtnEliminarPac = new javax.swing.JButton();
+        BtnModificarRep = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         TablaRecepcionistas = new javax.swing.JTable();
         BtnSalirCrudDoc = new javax.swing.JButton();
+        TxtBuscarRep = new javax.swing.JTextField();
+        BtnBuscarRep = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -133,6 +140,20 @@ public class Crud_Recepcionista extends javax.swing.JFrame {
             }
         });
 
+        BtnEliminarPac.setText("Eliminar");
+        BtnEliminarPac.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnEliminarPacActionPerformed(evt);
+            }
+        });
+
+        BtnModificarRep.setText("Modificar");
+        BtnModificarRep.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnModificarRepActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -165,28 +186,36 @@ public class Crud_Recepcionista extends javax.swing.JFrame {
                             .addComponent(TxtDireccionRep, javax.swing.GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE)
                             .addComponent(TxtTelefonoRep, javax.swing.GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE)
                             .addComponent(DateRecepcionista, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addGap(42, 42, 42)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(42, 42, 42)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel8)
-                            .addComponent(jLabel10)
-                            .addComponent(jLabel9)
-                            .addComponent(jLabel14))
-                        .addGap(29, 29, 29)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(ComboTipoSangreRep, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(SpinerEdadRep, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(ComboTituloRep, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(RadioBtnMasculino)
-                                .addGap(18, 18, 18)
-                                .addComponent(RadioBtnFemenino)
-                                .addGap(18, 18, 18)
-                                .addComponent(RadioBtnNoDefinido))))
-                    .addComponent(BtnGuardarRep)
-                    .addComponent(BtnVRegistrosRecep))
-                .addContainerGap(49, Short.MAX_VALUE))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel8)
+                                    .addComponent(jLabel10)
+                                    .addComponent(jLabel9)
+                                    .addComponent(jLabel14))
+                                .addGap(29, 29, 29)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(ComboTipoSangreRep, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(SpinerEdadRep, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(ComboTituloRep, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(RadioBtnMasculino)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(RadioBtnFemenino)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(RadioBtnNoDefinido))))
+                            .addComponent(BtnGuardarRep)
+                            .addComponent(BtnVRegistrosRecep))
+                        .addContainerGap(49, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(BtnEliminarPac)
+                        .addGap(37, 37, 37)
+                        .addComponent(BtnModificarRep)
+                        .addGap(62, 62, 62))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -233,7 +262,9 @@ public class Crud_Recepcionista extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel12)
-                    .addComponent(TxtIdRecepcionista, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(TxtIdRecepcionista, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(BtnEliminarPac)
+                    .addComponent(BtnModificarRep))
                 .addContainerGap(30, Short.MAX_VALUE))
         );
 
@@ -246,12 +277,24 @@ public class Crud_Recepcionista extends javax.swing.JFrame {
                 "Cedula", "Apellido", "Nombre", "Fecha de nacimiento", "Telefono", "Direccion", "ID", "Edad", "Tipo Sangre", "Genero", "Titulo"
             }
         ));
+        TablaRecepcionistas.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TablaRecepcionistasMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(TablaRecepcionistas);
 
         BtnSalirCrudDoc.setText("Salir");
         BtnSalirCrudDoc.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BtnSalirCrudDocActionPerformed(evt);
+            }
+        });
+
+        BtnBuscarRep.setText("Buscar");
+        BtnBuscarRep.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnBuscarRepActionPerformed(evt);
             }
         });
 
@@ -270,6 +313,15 @@ public class Crud_Recepcionista extends javax.swing.JFrame {
                         .addContainerGap()
                         .addComponent(jScrollPane1)))
                 .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(TxtBuscarRep, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(176, 176, 176))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(BtnBuscarRep)
+                        .addGap(210, 210, 210))))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(100, 100, 100)
@@ -284,14 +336,18 @@ public class Crud_Recepcionista extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(BtnSalirCrudDoc)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 377, Short.MAX_VALUE)
+                .addGap(152, 152, 152)
+                .addComponent(TxtBuscarRep, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(BtnBuscarRep)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 164, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(121, 121, 121))
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(layout.createSequentialGroup()
                     .addGap(96, 96, 96)
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(310, Short.MAX_VALUE)))
+                    .addContainerGap(307, Short.MAX_VALUE)))
         );
 
         pack();
@@ -332,6 +388,151 @@ public class Crud_Recepcionista extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_BtnSalirCrudDocActionPerformed
 
+    private void BtnEliminarPacActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnEliminarPacActionPerformed
+        // TODO add your handling code here:
+        int i = TablaRecepcionistas.getSelectedRow();
+        if (i >= 0) {
+            EliminarRecepcionista();
+            limpiar_datosRecepcionistas();
+        } else {
+            JOptionPane.showMessageDialog(null, "Seleccione el registro para eliminar.");
+        }
+    }//GEN-LAST:event_BtnEliminarPacActionPerformed
+
+    private void TablaRecepcionistasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TablaRecepcionistasMouseClicked
+        int i = TablaRecepcionistas.getSelectedRow();
+
+        if (i >= 0) {
+            String cedula = TablaRecepcionistas.getValueAt(i, 0).toString();
+            String apellido = TablaRecepcionistas.getValueAt(i, 1).toString();
+            String nombre = TablaRecepcionistas.getValueAt(i, 2).toString();
+            String fnacimiento = TablaRecepcionistas.getValueAt(i, 3).toString();
+            String telefono = TablaRecepcionistas.getValueAt(i, 4).toString();
+            String direccion = TablaRecepcionistas.getValueAt(i, 5).toString();
+            String id_r = TablaRecepcionistas.getValueAt(i, 6).toString();
+            String edad = TablaRecepcionistas.getValueAt(i, 7).toString();
+            String tipo_sangre = TablaRecepcionistas.getValueAt(i, 8).toString();
+            String genero = TablaRecepcionistas.getValueAt(i, 9).toString();
+            String titulo = TablaRecepcionistas.getValueAt(i, 10).toString();
+
+            TxtCedulaRep.setText(cedula);
+            TxtApellidoRep.setText(apellido);
+            TxtNombreRep.setText(nombre);
+            // DateDoctorFecha.setDate(fnacimientod);
+            TxtTelefonoRep.setText(telefono);
+            TxtDireccionRep.setText(direccion);
+            TxtIdRecepcionista.setText(id_r);
+            if(genero.equals("Masculino")){
+                RadioBtnMasculino.setSelected(true);
+            }
+            if(genero.equals("Femenino")){
+                RadioBtnFemenino.setSelected(true);
+            }
+            if(genero.equals("No definido")){
+                RadioBtnNoDefinido.setSelected(true);
+            }
+            ComboTipoSangreRep.setSelectedItem(tipo_sangre);
+            ComboTituloRep.setSelectedItem(titulo);
+
+        } else {
+            JOptionPane.showMessageDialog(null, "");
+        }
+    }//GEN-LAST:event_TablaRecepcionistasMouseClicked
+
+    private void BtnModificarRepActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnModificarRepActionPerformed
+
+        int i = TablaRecepcionistas.getSelectedRow();
+        if (i >= 0) {
+            mostrar_edadRecep();
+            genero_recepcionista();
+            ModificarRecepcionista();
+        } else {
+            JOptionPane.showMessageDialog(null, "Seleccione el registro para modificar.");
+        }
+    }//GEN-LAST:event_BtnModificarRepActionPerformed
+
+    private void BtnBuscarRepActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnBuscarRepActionPerformed
+        // TODO add your handling code here:
+        if(!(TxtBuscarRep.getText().equals(""))){
+            buscarRecepcionista();
+        }else{
+            JOptionPane.showMessageDialog(null, "Por favor debe ingresar la cedula en el campo, para realizar la consulta.", "Precaución  ", JOptionPane.WARNING_MESSAGE);
+        }
+        TxtBuscarRep.setText("");
+    }//GEN-LAST:event_BtnBuscarRepActionPerformed
+
+    public void buscarRecepcionista(){
+        DefaultTableModel modelo = (DefaultTableModel) TablaRecepcionistas.getModel();
+        modelo.setRowCount(0);
+        List<Recepcionista> listaRecepcionista = acrecep.ConsultaRecepcionista(TxtBuscarRep.getText());
+        for (Recepcionista dato : listaRecepcionista) {
+            Vector recepcio = new Vector();
+            recepcio.add(dato.getCedula());
+            recepcio.add(dato.getApellido());
+            recepcio.add(dato.getNombre());
+            recepcio.add(dato.getFecha_nacimiento());
+            recepcio.add(dato.getTelefono());
+            recepcio.add(dato.getDireccion());
+            recepcio.add(dato.getId());
+            recepcio.add(dato.getEdad());
+            recepcio.add(dato.getTipo_sangre());
+            recepcio.add(dato.getGenero());
+            recepcio.add(dato.getTitulo());
+            modelo.addRow(recepcio);
+            TablaRecepcionistas.setModel(modelo);
+        }
+    }
+    public void ModificarRecepcionista() {//aquiiiiiiiiiiiiiiiiiiiiiiiiii
+        String cedula = TxtCedulaRep.getText();
+        String apellido = TxtApellidoRep.getText();
+        String nombre = TxtNombreRep.getText();
+        SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
+        String fnacimiento = formatoFecha.format(DateRecepcionista.getDate());
+        String telefono = TxtTelefonoRep.getText();
+        String direccion = TxtDireccionRep.getText();
+        String id_r = TxtIdRecepcionista.getText();
+        int edad = Integer.parseInt(edadrecep);
+        String tipo_sangre = ComboTipoSangreRep.getSelectedItem().toString();
+        String genero = generorecep;
+        String titulo = ComboTituloRep.getSelectedItem().toString();
+
+        //validamos los campos a enviar a la base de datos
+        if (cedula.isEmpty() || apellido.isEmpty() || nombre.isEmpty() || fnacimiento.isEmpty() || telefono.isEmpty() || direccion.isEmpty() || id_r.isEmpty() || edad <= 0 || tipo_sangre.isEmpty() || genero.isEmpty() || titulo.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Por favor valide los datos a enviar a la Base de Datos");
+        } else {
+            Recepcionista rep = new Recepcionista();
+            rep.setCedula(cedula);
+            rep.setApellido(apellido);
+            rep.setNombre(nombre);
+            rep.setFecha_nacimiento(fnacimiento);
+            rep.setTelefono(telefono);
+            rep.setDireccion(direccion);
+            rep.setId(id_r);
+            rep.setEdad(edad);
+            rep.setTipo_sangre(tipo_sangre);
+            rep.setGenero(genero);
+            rep.setTitulo(titulo);
+            if (acrecep.ModificarRecepcionista(rep)) {
+                JOptionPane.showMessageDialog(null, "Modificasion con exito");
+                vertablaRecepcionistas();
+                limpiar_datosRecepcionistas();
+            }
+        }
+
+    }
+
+    public void EliminarRecepcionista() {
+        String cedula = TxtCedulaRep.getText();
+        if (TxtCedulaRep.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Por favor debe seleccionar un articulo de la lista");
+        } else {
+            if (acrecep.EliminarRecepcionista(cedula)) {
+                JOptionPane.showMessageDialog(null, "Registro eliminado con exito...");
+                vertablaRecepcionistas();
+            }
+        }
+    }
+
     public void registrarRecepcionista() {
         String cedula = TxtCedulaRep.getText();
         String apellido = TxtApellidoRep.getText();
@@ -363,14 +564,15 @@ public class Crud_Recepcionista extends javax.swing.JFrame {
             recepc.setTitulo(titulo);
             if (acrecep.InsertarRecepcionista(recepc)) {
                 JOptionPane.showMessageDialog(null, "Registro guardado con exito...");
-              //  vertablaDoctores();
+                //  vertablaDoctores();
             }
         }
     }
+
     public void mostrar_edadRecep() {
         edadrecep = SpinerEdadRep.getValue().toString();
     }
-    
+
     public void genero_recepcionista() {
         GrupoGeneroRecep.add(RadioBtnMasculino);
         GrupoGeneroRecep.add(RadioBtnFemenino);
@@ -385,7 +587,7 @@ public class Crud_Recepcionista extends javax.swing.JFrame {
             generorecep = "No definido";
         }
     }
-    
+
     public void vertablaRecepcionistas() {
         DefaultTableModel modelo = (DefaultTableModel) TablaRecepcionistas.getModel();
         modelo.setRowCount(0);
@@ -409,7 +611,7 @@ public class Crud_Recepcionista extends javax.swing.JFrame {
             TablaRecepcionistas.setModel(modelo);
         }
     }
-    
+
     public void limpiar_datosRecepcionistas() {
         TxtCedulaRep.setText("");
         TxtApellidoRep.setText("");
@@ -422,6 +624,7 @@ public class Crud_Recepcionista extends javax.swing.JFrame {
         GrupoGeneroRecep.clearSelection();
 
     }
+
     /**
      * @param args the command line arguments
      */
@@ -458,7 +661,10 @@ public class Crud_Recepcionista extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BtnBuscarRep;
+    private javax.swing.JButton BtnEliminarPac;
     private javax.swing.JButton BtnGuardarRep;
+    private javax.swing.JButton BtnModificarRep;
     private javax.swing.JButton BtnSalirCrudDoc;
     private javax.swing.JButton BtnVRegistrosRecep;
     private javax.swing.JComboBox<String> ComboTipoSangreRep;
@@ -471,6 +677,7 @@ public class Crud_Recepcionista extends javax.swing.JFrame {
     private javax.swing.JSpinner SpinerEdadRep;
     private javax.swing.JTable TablaRecepcionistas;
     private javax.swing.JTextField TxtApellidoRep;
+    private javax.swing.JTextField TxtBuscarRep;
     private javax.swing.JTextField TxtCedulaRep;
     private javax.swing.JTextField TxtDireccionRep;
     private javax.swing.JTextField TxtIdRecepcionista;

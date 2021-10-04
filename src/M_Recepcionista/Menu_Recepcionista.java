@@ -5,6 +5,8 @@
  */
 package M_Recepcionista;
 
+import M_Recepcionista.Crud_Recepcionista;
+import M_Recepcionista.Crud_Paciente;
 import M_Recepcionista.Crud_Doctor;
 
 /**
