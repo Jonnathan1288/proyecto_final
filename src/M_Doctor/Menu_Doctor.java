@@ -123,16 +123,11 @@ public class Menu_Doctor extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnRegistrarPacientes1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarPacientes1ActionPerformed
-        // TODO add your handling code here:
-        Crud_Recepcionista crep = new Crud_Recepcionista();
-        crep.setVisible(true);
-        dispose();
+
     }//GEN-LAST:event_btnRegistrarPacientes1ActionPerformed
 
     private void btnRegistrarTurnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegistrarTurnoActionPerformed
-        // TODO add your handling code here:
-        Generar_Turno gt = new Generar_Turno();
-        gt.setVisible(true);
+
     }//GEN-LAST:event_btnRegistrarTurnoActionPerformed
 
     /**

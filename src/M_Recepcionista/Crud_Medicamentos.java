@@ -7,6 +7,7 @@ package M_Recepcionista;
  */
 
 
+import Medicamentos.Medicamento;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 
@@ -15,7 +16,7 @@ import javax.swing.JOptionPane;
  * @author carlo
  */
 public class Crud_Medicamentos extends javax.swing.JFrame {
-    ArrayList<Medicamentos>arrayMedicamentos= new ArrayList();
+    ArrayList<Medicamento>arrayMedicamentos= new ArrayList();
     /**
      * Creates new form Registrar_Medicamentos
      */
@@ -205,7 +206,7 @@ public class Crud_Medicamentos extends javax.swing.JFrame {
                 .addGap(0, 0, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4)
                     .addComponent(LblLogoLlacao))
                 .addGap(27, 27, 27))
