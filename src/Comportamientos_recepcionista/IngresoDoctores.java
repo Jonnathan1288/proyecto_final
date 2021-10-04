@@ -18,14 +18,15 @@ import Interface.ConexionesDoc;
  *
  * @author DELL
  */
-public class IngresoDoctores implements ConexionesDoc{
+public class IngresoDoctores implements ConexionesDoc {
+
     PreparedStatement pst;
     Conexion conexionn = new Conexion();
     ResultSet rs;
-    
+
     @Override
     public boolean InsertarDoctor(Doctor doctor) {
-        String sql = "insert into doctores (cedulad, apellidod, nombred, fnacimientod, telefono, direcciond, codigod, edad, tiposangred, genero, especialidad, consultorio)"+"values (?,?,?,?,?,?,?,?,?,?,?,?)";
+        String sql = "insert into doctores (cedulad, apellidod, nombred, fnacimientod, telefono, direcciond, codigod, edad, tiposangred, genero, especialidad, consultorio)" + "values (?,?,?,?,?,?,?,?,?,?,?,?)";
         try {
             pst = conexionn.Conexion().prepareStatement(sql);
             pst.setString(1, doctor.getCedula());
@@ -43,8 +44,8 @@ public class IngresoDoctores implements ConexionesDoc{
             pst.executeUpdate();
             return true;
         } catch (Exception e) {
-         JOptionPane.showMessageDialog(null, "Error al insertar el articulo "+e.getMessage());
-        }finally{
+            JOptionPane.showMessageDialog(null, "Error al insertar el articulo " + e.getMessage());
+        } finally {
             conexionn.Desconectar();
         }
         return false;
@@ -55,13 +56,13 @@ public class IngresoDoctores implements ConexionesDoc{
         List<Doctor> listarDoctores = new ArrayList<>();
         /*String sql = "SELECT d.*, c.nombre as nombrecategoria FROM articulos a\n" +
                     "JOIN categorias c ON a.idcategoria = c.idcategoria";*/
-        String sql ="SELECT * FROM doctores";
+        String sql = "SELECT * FROM doctores";
         try {
             pst = conexionn.Conexion().prepareStatement(sql);
             rs = pst.executeQuery();
-            
-            while (rs.next()) {                
-                Doctor art = new Doctor();        
+
+            while (rs.next()) {
+                Doctor art = new Doctor();
                 art.setCedula(rs.getString("cedulad"));
                 art.setApellido(rs.getString("apellidod"));
                 art.setNombre(rs.getString("nombred"));
@@ -74,21 +75,102 @@ public class IngresoDoctores implements ConexionesDoc{
                 art.setGenero(rs.getString("genero"));
                 art.setEspecialidad(rs.getString("especialidad"));
                 art.setConsultorio(rs.getInt("consultorio"));
-                listarDoctores.add(art); 
+                listarDoctores.add(art);
             }
             rs.close();
             pst.close();
-            
+
         } catch (Exception e) {
 //            e.printStackTrace();
-            JOptionPane.showMessageDialog(null, "Error al leer los datos "+e.getMessage());
-        }finally{
+            JOptionPane.showMessageDialog(null, "Error al leer los datos " + e.getMessage());
+        } finally {
             conexionn.Desconectar();
         }
         return listarDoctores;
     }
-    public void hacernada(){
-        System.out.println("Hola soy un metodo.");
-        
+
+    @Override
+    public boolean EliminarDoctor(String cedulad) {
+        String sql = "DELETE from doctores WHERE cedulad = ?";
+        try {
+            pst = conexionn.Conexion().prepareStatement(sql);
+            pst.setString(1, cedulad);
+
+            pst.executeUpdate();
+            return true;
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al eliminar el registro del doctor " + e.getMessage());
+        } finally {
+            conexionn.Desconectar();
+        }
+        return false;
     }
+
+    @Override
+    public boolean ModificarDoctor(Doctor doctore) {
+        String sql = "UPDATE doctores SET apellidod = ?, nombred = ?, fnacimientod = ?,\n"
+                + "telefono = ?, direcciond = ?, codigod = ?, edad = ?, tiposangred = ?, genero = ?, especialidad = ?, consultorio = ? WHERE cedulad = ?";
+        try {
+            pst = conexionn.Conexion().prepareStatement(sql);
+            pst.setString(1, doctore.getApellido());
+            pst.setString(2, doctore.getNombre());
+            pst.setString(3, doctore.getFecha_nacimiento());
+            pst.setString(4, doctore.getTelefono());
+            pst.setString(5, doctore.getDireccion());
+            pst.setString(6, doctore.getCodigo_doctor());
+            pst.setInt(7, doctore.getEdad());
+            pst.setString(8, doctore.getTipo_sangre());
+            pst.setString(9, doctore.getGenero());
+            pst.setString(10, doctore.getEspecialidad());
+            pst.setInt(11, doctore.getConsultorio());
+            pst.setString(12, doctore.getCedula());
+            pst.executeUpdate();
+            return true;
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Error al actualizar los datos del doctor" + e.getMessage());
+        } finally {
+            conexionn.Desconectar();
+        }
+        return false;
+    }
+    
+    public List<Doctor> consultaDoctor(String cedulad) {
+        List<Doctor> listaConsultaDoc = new ArrayList<>();
+        /*String sql = "SELECT d.*, c.nombre as nombrecategoria FROM articulos a\n" +
+                    "JOIN categorias c ON a.idcategoria = c.idcategoria";*/
+        String sql = "select * from doctores where cedulad = ?";
+        try {
+            pst = conexionn.Conexion().prepareStatement(sql);
+            pst.setString(1, cedulad);
+            rs = pst.executeQuery();
+           // pst.executeQuery();
+
+            while (rs.next()) {
+                Doctor art = new Doctor();
+                art.setCedula(rs.getString("cedulad"));
+                art.setApellido(rs.getString("apellidod"));
+                art.setNombre(rs.getString("nombred"));
+                art.setFecha_nacimiento(rs.getString("fnacimientod"));
+                art.setTelefono(rs.getString("telefono"));
+                art.setDireccion(rs.getString("direcciond"));
+                art.setCodigo_doctor(rs.getString("codigod"));
+                art.setEdad(rs.getInt("edad"));
+                art.setTipo_sangre(rs.getString("tiposangred"));
+                art.setGenero(rs.getString("genero"));
+                art.setEspecialidad(rs.getString("especialidad"));
+                art.setConsultorio(rs.getInt("consultorio"));
+                listaConsultaDoc.add(art);
+            }
+            rs.close();
+            pst.close();
+
+        } catch (Exception e) {
+//            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, "Error el doctor no exite: error " + e.getMessage());
+        } finally {
+            conexionn.Desconectar();
+        }
+        return listaConsultaDoc;
+    }
+
 }

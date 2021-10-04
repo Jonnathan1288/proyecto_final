@@ -17,4 +17,7 @@ public interface ConexionesDoc {
     
     public List<Doctor> listarDatos();
     
+    public boolean EliminarDoctor(String cedulad);
+    
+    public boolean ModificarDoctor(Doctor doctore);
 }

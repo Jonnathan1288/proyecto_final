@@ -5,13 +5,16 @@
  */
 package M_Recepcionista;
 
-import clases.Doctor;
 import Comportamientos_recepcionista.IngresoDoctores;
 import Conexion_BD.Conexion;
 import M_Recepcionista.Menu_Recepcionista;
+import clases.Doctor;
 import static java.awt.Frame.MAXIMIZED_BOTH;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -36,6 +39,7 @@ public class Crud_Doctor extends javax.swing.JFrame {
         initComponents();
         this.setLocationRelativeTo(null);
         this.setExtendedState(MAXIMIZED_BOTH);
+        vertablaDoctores();
     }
 
     /**
@@ -75,21 +79,31 @@ public class Crud_Doctor extends javax.swing.JFrame {
         jLabel15 = new javax.swing.JLabel();
         ComboEspecialidadDoc = new javax.swing.JComboBox<>();
         SpinerConsultorioDoc = new javax.swing.JSpinner();
-        BtnGuardarDoc = new javax.swing.JButton();
-        BtnVRegistros = new javax.swing.JButton();
         DateDoctorFecha = new com.toedter.calendar.JDateChooser();
         jScrollPane1 = new javax.swing.JScrollPane();
         TablaDoctores = new javax.swing.JTable();
-        jLabel11 = new javax.swing.JLabel();
+        TxtBuscarcedula = new javax.swing.JTextField();
+        BtnBuscarDoc = new javax.swing.JButton();
+        jPanel2 = new javax.swing.JPanel();
+        jLabel13 = new javax.swing.JLabel();
         BtnSalirCrudDoc = new javax.swing.JButton();
+        jPanel3 = new javax.swing.JPanel();
+        BtnModificarDoc = new javax.swing.JButton();
+        BtnEliminarDoc = new javax.swing.JButton();
+        jButton1 = new javax.swing.JButton();
+        BtnVRegistros = new javax.swing.JButton();
+        BtnGuardarDoc = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
 
+        jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel1.setText("Cedula: ");
 
+        jLabel2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel2.setText("Apellido: ");
 
+        jLabel4.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel4.setText("Nombre: ");
 
         jLabel5.setText("Fecha de nacimiento: ");
@@ -119,6 +133,11 @@ public class Crud_Doctor extends javax.swing.JFrame {
 
         GrupoGeneroDoc.add(RadioBtnNoDefinido);
         RadioBtnNoDefinido.setText("No definido");
+        RadioBtnNoDefinido.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RadioBtnNoDefinidoActionPerformed(evt);
+            }
+        });
 
         jLabel10.setText("Genero: ");
 
@@ -131,20 +150,6 @@ public class Crud_Doctor extends javax.swing.JFrame {
         ComboEspecialidadDoc.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione", "Alergología", "Anestesiología", "Angiología", "Cardiología", "Endocrinología", "Estomatología", "Gastroenterología", "Genética", "Geriatría", "Hematología", "Hepatología", "Infectología", "Medicina aeroespacial", "Medicina del deporte", "Medicina familiar y comunitaria", "Medicina física y rehabilitación", "Medicina forense", "Medicina intensiva", "Medicina interna", "Medicina preventiva y salud pública", "Medicina del trabajo", "Nefrología", "Neumología", "Neurología", "Nutriología", "Oncología médica", "Oncología radioterápica", "Pediatría", "Psiquiatría", "Reumatología", "Toxicología", " " }));
 
         SpinerConsultorioDoc.setModel(new javax.swing.SpinnerNumberModel(1, 1, 20, 1));
-
-        BtnGuardarDoc.setText("Guardar");
-        BtnGuardarDoc.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BtnGuardarDocActionPerformed(evt);
-            }
-        });
-
-        BtnVRegistros.setText("Ver registros");
-        BtnVRegistros.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BtnVRegistrosActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -174,35 +179,31 @@ public class Crud_Doctor extends javax.swing.JFrame {
                             .addComponent(jLabel12))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(TxtCodigoDoc, javax.swing.GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE)
-                            .addComponent(TxtDireccionDoc, javax.swing.GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE)
-                            .addComponent(TxtTelefonoDoc, javax.swing.GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE)
-                            .addComponent(DateDoctorFecha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                            .addComponent(TxtCodigoDoc)
+                            .addComponent(TxtDireccionDoc)
+                            .addComponent(TxtTelefonoDoc)
+                            .addComponent(DateDoctorFecha, javax.swing.GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE))))
                 .addGap(42, 42, 42)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel8)
+                    .addComponent(jLabel10)
+                    .addComponent(jLabel9)
+                    .addComponent(jLabel14)
+                    .addComponent(jLabel15))
+                .addGap(29, 29, 29)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(ComboTipoSangreDoc, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addComponent(SpinerConsultorioDoc, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(SpinerEdadDoc, javax.swing.GroupLayout.Alignment.LEADING))
+                    .addComponent(ComboEspecialidadDoc, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel8)
-                            .addComponent(jLabel10)
-                            .addComponent(jLabel9)
-                            .addComponent(jLabel14)
-                            .addComponent(jLabel15))
-                        .addGap(29, 29, 29)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(ComboTipoSangreDoc, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(SpinerConsultorioDoc, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(SpinerEdadDoc, javax.swing.GroupLayout.Alignment.LEADING))
-                            .addComponent(ComboEspecialidadDoc, javax.swing.GroupLayout.PREFERRED_SIZE, 257, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(RadioBtnMasculino)
-                                .addGap(18, 18, 18)
-                                .addComponent(RadioBtnFemenino)
-                                .addGap(18, 18, 18)
-                                .addComponent(RadioBtnNoDefinido))))
-                    .addComponent(BtnGuardarDoc)
-                    .addComponent(BtnVRegistros))
-                .addContainerGap(49, Short.MAX_VALUE))
+                        .addComponent(RadioBtnMasculino)
+                        .addGap(18, 18, 18)
+                        .addComponent(RadioBtnFemenino)
+                        .addGap(18, 18, 18)
+                        .addComponent(RadioBtnNoDefinido)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -245,14 +246,12 @@ public class Crud_Doctor extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel7)
-                    .addComponent(TxtDireccionDoc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(BtnGuardarDoc))
+                    .addComponent(TxtDireccionDoc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel12)
-                    .addComponent(TxtCodigoDoc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(BtnVRegistros))
-                .addContainerGap(28, Short.MAX_VALUE))
+                    .addComponent(TxtCodigoDoc, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(30, Short.MAX_VALUE))
         );
 
         TablaDoctores.setModel(new javax.swing.table.DefaultTableModel(
@@ -264,15 +263,92 @@ public class Crud_Doctor extends javax.swing.JFrame {
                 "Cedula", "Apellido", "Nombre", "Fecha de nacimiento", "Telefono", "Direccion", "Codigo", "Edad", "Tipo Sangre", "Genero", "Especialidad", "Consultorio"
             }
         ));
+        TablaDoctores.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TablaDoctoresMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(TablaDoctores);
 
-        jLabel11.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
-        jLabel11.setText("CRUD DE DOCTOR");
+        BtnBuscarDoc.setText("Buscar");
+        BtnBuscarDoc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnBuscarDocActionPerformed(evt);
+            }
+        });
+
+        jPanel2.setBackground(new java.awt.Color(153, 153, 255));
+
+        jLabel13.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
+        jLabel13.setForeground(new java.awt.Color(255, 255, 255));
+        jLabel13.setText("Crud Doctor");
 
         BtnSalirCrudDoc.setText("Salir");
         BtnSalirCrudDoc.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BtnSalirCrudDocActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(582, 582, 582)
+                .addComponent(jLabel13)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(BtnSalirCrudDoc)
+                .addContainerGap())
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(BtnSalirCrudDoc)
+                    .addComponent(jLabel13))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 61, Short.MAX_VALUE)
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 18, Short.MAX_VALUE)
+        );
+
+        BtnModificarDoc.setText("Modificar");
+        BtnModificarDoc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnModificarDocActionPerformed(evt);
+            }
+        });
+
+        BtnEliminarDoc.setText("Eliminar");
+        BtnEliminarDoc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnEliminarDocActionPerformed(evt);
+            }
+        });
+
+        jButton1.setText("Limpiar");
+
+        BtnVRegistros.setText("Ver registros");
+        BtnVRegistros.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnVRegistrosActionPerformed(evt);
+            }
+        });
+
+        BtnGuardarDoc.setText("Guardar");
+        BtnGuardarDoc.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnGuardarDocActionPerformed(evt);
             }
         });
 
@@ -284,40 +360,67 @@ public class Crud_Doctor extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(254, 254, 254)
+                        .addGap(10, 10, 10)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel3)
-                        .addGap(0, 258, Short.MAX_VALUE))
+                        .addGap(84, 84, 84)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(BtnModificarDoc)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(jButton1)
+                                        .addComponent(BtnEliminarDoc))
+                                    .addGap(308, 308, 308)
+                                    .addComponent(jLabel3)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addComponent(BtnGuardarDoc)
+                                    .addComponent(BtnVRegistros))
+                                .addGap(302, 302, 302)))
+                        .addGap(0, 56, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane1)
-                        .addContainerGap())))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(605, 605, 605)
-                .addComponent(jLabel11)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(BtnSalirCrudDoc)
-                .addContainerGap())
+                        .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(TxtBuscarcedula, javax.swing.GroupLayout.PREFERRED_SIZE, 124, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(35, 35, 35)
+                        .addComponent(BtnBuscarDoc)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(399, 399, 399))))
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(87, 87, 87)
-                        .addComponent(jLabel3)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(106, 106, 106)
+                        .addComponent(jLabel3))
                     .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(TxtBuscarcedula, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(BtnBuscarDoc))
+                            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addGap(21, 21, 21)
-                                .addComponent(jLabel11)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
+                                .addGap(18, 18, 18)
                                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                                .addComponent(BtnSalirCrudDoc)
-                                .addGap(0, 0, Short.MAX_VALUE)))
-                        .addGap(18, 18, 18)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(27, 27, 27)
+                                .addComponent(BtnModificarDoc)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(BtnEliminarDoc)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jButton1)
+                                .addGap(18, 18, 18)
+                                .addComponent(BtnVRegistros)
+                                .addGap(18, 18, 18)
+                                .addComponent(BtnGuardarDoc)))))
+                .addGap(18, 40, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -422,6 +525,177 @@ public class Crud_Doctor extends javax.swing.JFrame {
         vertablaDoctores();
     }//GEN-LAST:event_BtnVRegistrosActionPerformed
 
+    private void BtnEliminarDocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnEliminarDocActionPerformed
+        // TODO add your handling code here:
+        int i = TablaDoctores.getSelectedRow();
+        if (i >= 0) {
+            int t = JOptionPane.showConfirmDialog(this, "Seguro que desea eliminar este registro?", "Verificación de eliminar.", JOptionPane.YES_NO_OPTION);
+            if (t == JOptionPane.YES_OPTION) {
+                EliminarDoctor();
+                limpiar_datosDoctor();
+                JOptionPane.showMessageDialog(null, "Registro eliminado correctamente");
+            }
+            if (t == JOptionPane.NO_OPTION) {
+                JOptionPane.showMessageDialog(null, "Eliminacion cancelada.");
+
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Seleccione el registro para eliminar.");
+        }
+    }//GEN-LAST:event_BtnEliminarDocActionPerformed
+
+    private void TablaDoctoresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TablaDoctoresMouseClicked
+        int i = TablaDoctores.getSelectedRow();
+
+        if (i >= 0) {
+            String cedulad = TablaDoctores.getValueAt(i, 0).toString();
+            String apellidod = TablaDoctores.getValueAt(i, 1).toString();
+            String nombred = TablaDoctores.getValueAt(i, 2).toString();
+            String fnacimientod = TablaDoctores.getValueAt(i, 3).toString();
+            String telefono = TablaDoctores.getValueAt(i, 4).toString();
+            String direcciond = TablaDoctores.getValueAt(i, 5).toString();
+            String codigod = TablaDoctores.getValueAt(i, 6).toString();
+            String edad = TablaDoctores.getValueAt(i, 7).toString();
+            String tiposangred = TablaDoctores.getValueAt(i, 8).toString();
+            String genero = TablaDoctores.getValueAt(i, 9).toString();
+            String especialidad = TablaDoctores.getValueAt(i, 10).toString();
+            String consultorio = TablaDoctores.getValueAt(i, 11).toString();
+
+            TxtCedulaDoc.setText(cedulad);
+            TxtApellidoDoc.setText(apellidod);
+            TxtNombreDoc.setText(nombred);
+            // DateDoctorFecha.setDate(fnacimientod);
+            TxtTelefonoDoc.setText(telefono);
+            TxtDireccionDoc.setText(direcciond);
+            TxtCodigoDoc.setText(codigod);
+            //----------------------------
+            edaddoc = SpinerEdadDoc.getValue().toString();
+            d = Integer.parseInt(edaddoc);
+
+            //String n = String.valueOf(edad);
+            // SpinerEdadDoc.setValue(n);
+            //---------------------------
+            ComboTipoSangreDoc.setSelectedItem(tiposangred);
+            if (genero.equals("Masculino")) {
+                RadioBtnMasculino.setSelected(true);
+            }
+            if (genero.equals("Femenino")) {
+                RadioBtnFemenino.setSelected(true);
+            }
+            if (genero.equals("No definido")) {
+                RadioBtnNoDefinido.setSelected(true);
+            }
+            ComboEspecialidadDoc.setSelectedItem(especialidad);
+
+        } else {
+            JOptionPane.showMessageDialog(null, "");
+        }
+    }//GEN-LAST:event_TablaDoctoresMouseClicked
+
+    private void BtnModificarDocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnModificarDocActionPerformed
+
+        int i = TablaDoctores.getSelectedRow();
+        if (i >= 0) {
+            mostrar_consultorioDoc();
+            mostrar_edadDoc();
+            genero_doctor();
+            ModificarDoctor();
+        } else {
+            JOptionPane.showMessageDialog(null, "Seleccione el registro para modificar.");
+        }
+    }//GEN-LAST:event_BtnModificarDocActionPerformed
+
+    private void RadioBtnNoDefinidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RadioBtnNoDefinidoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_RadioBtnNoDefinidoActionPerformed
+
+    private void BtnBuscarDocActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnBuscarDocActionPerformed
+
+        if (!(TxtBuscarcedula.getText().equals(""))) {
+            BusquedaDoctor();
+        } else {
+            JOptionPane.showMessageDialog(null, "Por favor debe ingresar la cedula en el campo, para realizar la consulta.", "Precaución  ", JOptionPane.WARNING_MESSAGE);
+        }
+        TxtBuscarcedula.setText("");
+    }//GEN-LAST:event_BtnBuscarDocActionPerformed
+
+    public void ModificarDoctor() {//aquiiiiiiiiiiiiiiiiiiiiiiiiii
+        String cedulado = TxtCedulaDoc.getText();
+        String apellidodo = TxtApellidoDoc.getText();
+        String nombredo = TxtNombreDoc.getText();
+        SimpleDateFormat formatoFecha = new SimpleDateFormat("yyyy-MM-dd");
+        String fecha_nacido = formatoFecha.format(DateDoctorFecha.getDate());
+        String telfonodo = TxtTelefonoDoc.getText();
+        String direcciondo = TxtDireccionDoc.getText();
+        String codigodo = TxtCodigoDoc.getText();
+        int edado = Integer.parseInt(edaddoc);
+        String tiposangredo = ComboTipoSangreDoc.getSelectedItem().toString();
+        String generodo = generodoc;
+        String especialidado = ComboEspecialidadDoc.getSelectedItem().toString();
+        int consultorio = Integer.parseInt(consultoriodoc);
+
+        //validamos los campos a enviar a la base de datos
+        if (cedulado.isEmpty() || apellidodo.isEmpty() || nombredo.isEmpty() || fecha_nacido.isEmpty() || telfonodo.isEmpty() || direcciondo.isEmpty() || codigodo.isEmpty() || edado <= 0 || tiposangredo.isEmpty() || generodo.isEmpty() || especialidado.isEmpty() || consultorio <= 0) {
+            JOptionPane.showMessageDialog(null, "Por favor valide los datos a enviar a la Base de Datos");
+        } else {
+            Doctor d = new Doctor();
+            d.setCedula(cedulado);
+            d.setApellido(apellidodo);
+            d.setNombre(nombredo);
+            d.setFecha_nacimiento(fecha_nacido);
+            d.setTelefono(telfonodo);
+            d.setDireccion(direcciondo);
+            d.setCodigo_doctor(codigodo);
+            d.setEdad(edado);
+            d.setTipo_sangre(tiposangredo);
+            d.setGenero(generodo);
+            d.setEspecialidad(especialidado);
+            d.setConsultorio(consultorio);
+            if (acc.ModificarDoctor(d)) {
+                JOptionPane.showMessageDialog(null, "Modificasion con exito");
+                vertablaDoctores();
+                limpiar_datosDoctor();
+            }
+        }
+
+    }
+
+    public void EliminarDoctor() {
+        String cedulad = TxtCedulaDoc.getText();
+        if (TxtCedulaDoc.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Por favor debe seleccionar un articulo de la lista");
+        } else {
+            if (acc.EliminarDoctor(cedulad)) {
+                JOptionPane.showMessageDialog(null, "Registro eliminado con exito...");
+                mostrar_doctores();
+            }
+        }
+    }
+
+    public void BusquedaDoctor() {
+        DefaultTableModel modelo = (DefaultTableModel) TablaDoctores.getModel();
+        modelo.setRowCount(0);
+        List<Doctor> listaDoctores = acc.consultaDoctor(TxtBuscarcedula.getText());
+        for (Doctor dato : listaDoctores) {
+            Vector v = new Vector();
+
+            v.add(dato.getCedula());
+            v.add(dato.getApellido());
+            v.add(dato.getNombre());
+            v.add(dato.getFecha_nacimiento());
+            v.add(dato.getTelefono());
+            v.add(dato.getDireccion());
+            v.add(dato.getCodigo_doctor());
+            v.add(dato.getEdad());
+            v.add(dato.getTipo_sangre());
+            v.add(dato.getGenero());
+            v.add(dato.getEspecialidad());
+            v.add(dato.getConsultorio());
+            modelo.addRow(v);
+            TablaDoctores.setModel(modelo);
+        }
+    }
+
     public void limpiar_datosDoctor() {
         TxtCedulaDoc.setText("");
         TxtApellidoDoc.setText("");
@@ -523,7 +797,10 @@ public class Crud_Doctor extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BtnBuscarDoc;
+    private javax.swing.JButton BtnEliminarDoc;
     private javax.swing.JButton BtnGuardarDoc;
+    private javax.swing.JButton BtnModificarDoc;
     private javax.swing.JButton BtnSalirCrudDoc;
     private javax.swing.JButton BtnVRegistros;
     private javax.swing.JComboBox<String> ComboEspecialidadDoc;
@@ -537,15 +814,17 @@ public class Crud_Doctor extends javax.swing.JFrame {
     private javax.swing.JSpinner SpinerEdadDoc;
     private javax.swing.JTable TablaDoctores;
     private javax.swing.JTextField TxtApellidoDoc;
+    private javax.swing.JTextField TxtBuscarcedula;
     private javax.swing.JTextField TxtCedulaDoc;
     private javax.swing.JTextField TxtCodigoDoc;
     private javax.swing.JTextField TxtDireccionDoc;
     private javax.swing.JTextField TxtNombreDoc;
     private javax.swing.JTextField TxtTelefonoDoc;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
@@ -557,6 +836,8 @@ public class Crud_Doctor extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }

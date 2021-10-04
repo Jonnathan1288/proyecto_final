@@ -5,6 +5,8 @@
  */
 package M_Recepcionista;
 
+import M_Recepcionista.Crud_Doctor;
+
 /**
  *
  * @author carlo
