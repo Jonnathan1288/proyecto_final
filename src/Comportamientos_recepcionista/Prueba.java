@@ -12,6 +12,7 @@ package Comportamientos_recepcionista;
 public class Prueba {
 
     String nom;
+    String numJose;
 
     public Prueba() {
     }
